@@ -69,7 +69,9 @@ process.stdin.on("data", chunk => {
     if (tokens.length > 1) {
       const version = tokens[tokens.length - 1];
       if (version) {
-        console.log(JSON.stringify({ version: { number: version } }));
+        const output = JSON.stringify({ version: { number: version } });
+        console.error('setting resource output to', output);
+        console.log(output);
         process.exit(0);
       } else {
         process.exit(1);

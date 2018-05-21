@@ -1,6 +1,10 @@
 {
   "private": true,
+  "name": "npm-concourse-resource",
   "scripts": {
     "test": "node -c *.js"
+  },
+  "dependencies": {
+    "semver": "^5.5.0"
   }
 }
