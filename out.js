@@ -36,14 +36,6 @@ process.stdin.on("data", chunk => {
   const access = params.access;
 
   const cwd = `${process.argv[2]}/${path}`;
-
-  console.error("all files in target directory...");
-  fs.readdir(cwd, (err, files) => {
-    files.forEach(file => {
-      console.error(file);
-    });
-  });
-
   const opts = {
     cwd,
     env: {
