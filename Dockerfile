@@ -1,4 +1,4 @@
-FROM node:8-slim
+FROM node:8.11-alpine
 
 COPY check.js /opt/resource/check
 COPY in.js /opt/resource/in
