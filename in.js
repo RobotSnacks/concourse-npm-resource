@@ -2,6 +2,7 @@
 
 const exec = require("child_process").exec;
 const fs = require("fs");
+const path = require("path");
 
 process.stdin.on("data", chunk => {
   const data = JSON.parse(chunk);
@@ -14,7 +15,6 @@ process.stdin.on("data", chunk => {
 
   const token = source.token;
   const registry = source.registry || "https://registry.npmjs.org";
-  const params = data.params;
 
   let authLine = "";
   let regLine = `registry=${registry}`;
@@ -38,11 +38,20 @@ process.stdin.on("data", chunk => {
       pkg = JSON.parse(stdout);
     } catch (e) {
       console.error("Error parsing JSON response from registry.");
-      console.error(stdout);
+      console.error(e);
       process.exit(1);
     }
 
     const { version } = pkg;
+    const outputPath = path.resolve(process.argv[2], 'version');
+    try {
+      fs.writeFileSync(outputPath, version);
+    } catch (e) {
+      console.error(`Error writing version file to ${outputPath}.`);
+      console.error(e);
+      process.exit(1);
+    }
+
     const output = JSON.stringify({ version: { number: version } });
     console.log(output);
     process.exit(0);
